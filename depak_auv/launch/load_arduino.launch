@@ -1,0 +1,17 @@
+<launch>
+  <!-- This file evokes the python script for compiling and uploading
+	the arduino-related code. It is mainly made for inclusion in other
+	launch files -->
+
+  <node pkg="rosbag" type="record" name="rosbag_laserscan" args="--lz4 -b 0 -o $(arg bagdir)HI_laserscan /scan /velodyne_nodelet_manager_laserscan/parameter_descriptions /velodyne_nodelet_manager_laserscan/parameter_updates"/>
+  <node pkg="rosbag" type="record" name="rosbag_points" args="--lz4 -b 0 -o $(arg bagdir)HI_pointcloud2 /velodyne_points /velodyne_nodelet_manager_cloud/parameter_descriptions /velodyne_nodelet_manager_cloud/parameter_updates"/>
+  <node if="false" pkg="rosbag" type="record" name="rosbag_diagnostics" args="--lz4 -b 0 -o $(arg bagdir)HI_diagnostics /diagnostics"/>
+
+  <!-- start nodelet manager and driver nodelets -->
+  <include file="$(find velodyne_pointcloud)/launch/32e_points.launch">
+    <arg name="read_fast" value="false"/>
+    <arg name="read_once" value="true"/>
+    <arg name="pcap" value="/home/user/Work/MIT Data/_Harbour - REX - 2017_06_14/harbor_inbound_lidar.pcap"/>
+  </include>
+
+</launch>

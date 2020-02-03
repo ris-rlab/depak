@@ -1,0 +1,14 @@
+<launch>
+  <!-- This file launches rosbag node to capture all interesting
+	data for testing and evaluation.
+	Use the bagdir variable to designate where the rosbags will be stored.-->
+
+  <!-- Where to store the *.bag files so that they don't clutter the main workspace?
+	This variable should end in slash. The path is either absolute
+	or relative to the current ROS workspace. -->
+  <arg name="bagdir" value="$(arg bagdir)" default="./rosbags/"/>
+
+  <node pkg="rosbag" type="record" name="rosbag_sensors" args="--lz4 -b 0 -o $(arg bagdir)sensor_data /fluid_vel"/>
+  <node pkg="rosbag" type="record" name="rosbag_system_debug" args="--lz4 -b 0 -o $(arg bagdir)ctlsystem_data /cmd_vel"/>
+
+</launch>

@@ -1,0 +1,15 @@
+<launch>
+  <!-- This file evokes the python script for compiling and uploading
+	the arduino-related code. It is mainly made for inclusion in other
+	launch files -->
+
+  <!-- Start recording data -->
+  <include file="$(depak_auv)/launch/capture_rosbags.launch">
+	<arg name="bagdir" value="./rosbags/"/>
+  </include>
+
+  <!-- Load the arduino code -->
+  <include file="$(depak_auv)/launch/load_arduino.launch">
+  </include>
+
+</launch>
